@@ -1,17 +1,22 @@
 <template>
+  <!-- Weather Reports and Statistics section -->
   <div class="row content">
+    <!-- Weather Reports section -->
     <div class="row col-md-6">
       <h2 class="heading">Weather Reports</h2>
       <div v-for="(city, index) in cities" :key="index" class="col-md-4 mt-2">
         <Cards :city="city.value" :region="city.label" :temperature="city.temperature" />
       </div>
     </div>
+
+    <!-- Statistics section -->
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-8">
           <h2 class="heading">Statistics</h2>
         </div>
         <div class="col-md-4">
+          <!-- Dropdown to select city -->
           <select class="form-select" v-model="selectedCity" @change="handleSelectChange">
             <option
               v-for="option in cities"
@@ -21,6 +26,8 @@
           </select>
         </div>
       </div>
+
+      <!-- Display weather charts for the selected city -->
       <div v-if="selectedCity">
         <div class="row" v-for="(chart, index) in charts" :key="index">
           <div class="heading-graph">{{ chart.title }} (Last 24 Hours)</div>
@@ -58,6 +65,8 @@ export default {
   mounted() {
     this.fetchData(this.selectedCity);
     this.fetchWeatherData();
+
+    // Automatically fetch weather data and charts data every 10 min
     setInterval(() => {
       this.fetchData(this.selectedCity);
     }, 600000);
@@ -67,13 +76,13 @@ export default {
     }, 600000);
   },
   methods: {
+    // Method to fetch weather data for all cities
     async fetchWeatherData() {
       await axios
         .get("http://localhost:8000/api/weatherBycity")
         .then(response => {
           const currentData = response.data.data;
           if (Array.isArray(currentData)) {
-
             this.cities = currentData.map(cityData => ({
               value: cityData.city,
               label: `${cityData.city}`,
@@ -90,6 +99,7 @@ export default {
         });
     },
 
+    // Method to fetch weather charts data for the selected city
     async fetchData(selectedCity) {
       await axios
         .get(`http://localhost:8000/api/weatherByHours/${selectedCity}`)
@@ -114,6 +124,8 @@ export default {
           ];
         });
     },
+
+    // Method to handle city selection change
     handleSelectChange() {
       this.fetchData(this.selectedCity);
     }

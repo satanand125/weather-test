@@ -1,4 +1,5 @@
 <template>
+  <!-- Container for the temperature chart -->
   <div id="chart-container-temperature" class="chart-container-temperature"></div>
 </template>
 
@@ -13,10 +14,11 @@ export default {
     }
   },
   mounted() {
-    this.renderChart();
+    this.renderChart(); // method to renders chart
   },
   watch: {
     chart: {
+      // Watcher for changes in the chart prop
       handler() {
         this.renderChart();
       },
@@ -25,8 +27,10 @@ export default {
   },
   methods: {
     renderChart() {
-      const filteredData = this.chart.filter(item => item.temperature !== null);
+      // Method to render the chart
+      const filteredData = this.chart.filter(item => item.temperature !== null); // Filter out data points with null temperature
       Highcharts.chart("chart-container-temperature", {
+        // Render Highcharts chart
         credits: {
           enabled: false
         },

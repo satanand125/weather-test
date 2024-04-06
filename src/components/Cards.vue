@@ -1,4 +1,5 @@
 <template>
+    <!-- Container for cards -->
     <div class="card">
         <div class="card-body">
             <div class="card-title m-0">{{ city }}</div>

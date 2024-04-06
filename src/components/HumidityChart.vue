@@ -1,4 +1,5 @@
 <template>
+  <!-- Container for the humidity chart -->
   <div id="chart-container-humidity"></div>
 </template>
 
@@ -13,9 +14,10 @@ export default {
     }
   },
   mounted() {
-    this.renderChart();
+    this.renderChart(); // method for rendering the chart
   },
   watch: {
+    // Watcher for changes in the chart prop
     chart: {
       handler() {
         this.renderChart();
@@ -25,6 +27,7 @@ export default {
   },
   methods: {
     renderChart() {
+      // Method for rendering chart
       const filteredData = this.chart.filter(item => item.humidity !== null);
 
       const chartData = filteredData.map(item => ({
@@ -33,6 +36,7 @@ export default {
       }));
 
       Highcharts.chart("chart-container-humidity", {
+        // Rendering high chart
         credits: {
           enabled: false,
         },

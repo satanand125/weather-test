@@ -1,4 +1,5 @@
 <template>
+<!-- Container for Wind Chart -->
   <div id="chart-container-wind"></div>
 </template>
 
@@ -15,16 +16,18 @@ export default {
     }
   },
   mounted() {
-    this.renderChart();
+    this.renderChart();  // method for rendering chart
   },
   methods: {
     renderChart() {
+      // rendering chart
       const windSpeedData = this.chart.filter(item => item.wind_speed !== null);
 
       const data = windSpeedData.map(item => parseFloat(item.wind_speed));
       const timeLabels = windSpeedData.map(item => item.start_time);
 
       Highcharts.chart("chart-container-wind", {
+        // method for rendering high chart
         credits: {
           enabled: false,
         },

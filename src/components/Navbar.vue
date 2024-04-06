@@ -1,3 +1,4 @@
+<!-- Sidenav Container -->
 <template>
     <div id="wrapper">
         <div id="sidebar-wrapper">
